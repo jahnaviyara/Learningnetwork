@@ -1,0 +1,69 @@
+<html>
+    <title>
+        Learning Networks
+    </title>
+    <style>
+        .text1{  
+            font-size: xx-large;
+            font-style: italic;
+            font-weight: 200;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        .text2{  
+            font-size: medium;
+            font-style: oblique;
+            font-family: sans-serif;
+        }
+    </style>
+    <body>
+        <center><table>
+        <%
+        console.log(links);
+        links.forEach(element => {
+            console.log(element);
+            var li,title,dou,sub;
+            if(element.includes('youtube') || element.includes('youtu.be')){
+                var link = element.split('/');
+                var link1 = element.split('=');
+                if(link[3].length != 11){
+                    li = link1[1];
+                }
+                else{
+                    li = link[3];
+                }
+                title=link[4];
+                dou=link[5];
+                sub = link[6];
+            }
+            else{
+                var link = element.split('////');
+                console.log(link);
+                var link1 = link.split('/');
+                console.log(link1);
+                li = link[0];
+                title = link[1];
+                dou = link[2];
+                sub = link[3];
+            }
+            <!-- console.log(link) -->
+            %><center>
+                    <tr>
+                        <td>
+                            <%if(element.includes('youtube') || element.includes('youtu.be')){%>
+                                <iframe class = "video" width="350" height="190" src="https://www.youtube.com/embed/<%=li%>" frameborder="0" allowfullscreen></iframe>
+                            <%}
+                            else{%>
+                                <iframe src="https://drive.google.com/file/d/<%=li>/preview" width="640" height="480"></iframe>
+                            <%}%>
+                        </td>
+                        <td >
+                            <div class="text1" style="margin-left: 50px;"><%=title%></div>
+                            <div class="text2" style="margin-left: 50px;">Date of upload:- <%=dou%></div>
+                            <div class="text2" style="margin-left: 50px;">Subject Name:- <%=sub%></div>
+                        </td>
+                    </tr>
+            </center>
+        <%});%>
+    </table></center>
+    </body>
+</html>
