@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 var mongojs = require('mongojs');
 var db = mongojs('mongodb://jahnavi:jahnavi@cluster0-shard-00-00-lhkoh.mongodb.net:27017,cluster0-shard-00-01-lhkoh.mongodb.net:27017,cluster0-shard-00-02-lhkoh.mongodb.net:27017/DataCollection?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority',['Subject','Faculty','Videos'])
-var bcrypt = require('bcrypt')
+var bcrypt = require('bcrypt');
+const { Cookie } = require('express-session');
 
 /* GET home page. */
 router.get('/',function(req,res,next){
@@ -15,8 +16,11 @@ router.post('/getdata',function(req,res,next){
   if(usertype1 == "Faculty"){
     res.redirect('/login')
   }
-  else{
+  else if(usertype1 == "Student"){
     res.redirect('/videopage');
+  }
+  else{
+    res.render('form');
   }
 })
 
@@ -95,14 +99,18 @@ router.post('/validation',function(req,res,next){
   }
 });
 
+
 router.post('/selection',function(req,res,next){
   var func = req.body.directedto;
   console.log(func);
   if(func == "Videopage"){
     res.redirect('/videopage')
   }
-  else{
+  else if(func == "upload"){
     res.redirect('/uploadVideo');
+  }
+  else{
+    res.render('form1')
   }
 });
 
@@ -235,4 +243,5 @@ router.post('/forgetpassword',function(req,res,next){
     }
   }
 });
+
 module.exports = router;   
