@@ -364,6 +364,14 @@
     text-decoration-style: none;
   }
   
+  .logout_button {
+    position: absolute;
+    top: 10px !important;
+    right: 15px !important;
+    }
+    .glyphicon.glyphicon-log-out{
+    font-size: 30px;
+  }
   .arrows {
     position: fixed;
     top: 10px !important;
