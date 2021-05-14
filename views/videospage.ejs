@@ -1,0 +1,57 @@
+<%-include('search');%>
+<head>
+    </head>
+    <body>
+        <!-- <input type="button" value="back" onclick="history.back()"> -->
+        <center>
+        <table cellpadding = "5">
+            <%var link = JSON.parse(link);
+            for(var i = 0;i < link.length;i++){
+                var element = link[i];
+                var li,tit,dou,sub;
+                <!-- console.log(element); -->
+                if(element.includes('youtube') || element.includes('youtu.be')){
+                    var links = element.split('/');
+                    <!-- console.log(links); -->
+                    var link1 = links[3].split('=');
+                    <!-- console.log(link1); -->
+                    if(links[3].length != 11){
+                        li = link1[1];
+                    }
+                    else{
+                        li = links[3];
+                    }
+                    tit = links[4];
+                    dou = links[5];
+                    sub = links[6];
+                }
+                else{
+                    var links = element.split('////');
+                    var link1 = links[0].split('/');
+                    li = link1[5];
+                    tit = links[1];
+                    dou = links[2];
+                    sub = links[3];
+                }%>
+                <center>
+                    <tr>
+                        <td>
+                            <% if(element.includes('youtube') || element.includes('youtu.be')){%>
+                                <iframe class="video" width = "350" height="190" src="https://www.youtube.com/embed/<%=li%>" allowfullscreen></iframe>
+                            <%}
+                            else{%>
+                                <iframe src="https://drive.google.com/file/d/<%=li%>/preview" width="350" height="190" allowfullscreen></iframe>
+                            <%}%>
+                        </td>
+                        <td>
+                            <div class="text1" style="margin-left: 50px;font-weight: bold; font-size: x-large;"><%=tit%></div>
+                            <div class="text2" style="margin-left: 50px;font-size: medium;">Date of Upload:-<%=dou%></div>
+                            <div class="text2" style="margin-left: 50px;font-size: medium;">Subject Name:-<%=sub%></div>
+                        </td>
+                    </tr>
+                </center>
+            <%}%>
+        </table>
+    </center>
+    </body>
+</html>

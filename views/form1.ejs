@@ -7,10 +7,17 @@
 	            <meta name="viewport" content="width=device-width, initial-scale=1">
                 <link rel="stylesheet" type="text/css" href="stylesheets/util.css">
 	            <link rel="stylesheet" type="text/css" href="stylesheets/main.css">
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     </head>
     <body>
         <div class="limiter">
             <div class="container-login100">
+                <div class="arrows">
+                    <button type="button" class="glyphicon glyphicon-chevron-left" onclick="history.back()"/>
+                    <button type="button" class="glyphicon glyphicon-chevron-right" onclick="history.forward()"/>
+                </div>
                 <div class="wrap-login100 p-l-50 p-r-50 p-t-77 p-b-30">
                     <form class="login100-form validate-form" action = "/selection" method="POST">
                         <span class="login100-form-title p-b-55">
@@ -18,7 +25,7 @@
                         </span>
     
                         <div class="wrap-input100 validate-input m-b-16" data-validate = "Valid Registration Number XXB01AXXXX">
-                            <input class="input100" type="radio" name="directedto" value="Videopage">See Videos
+                            <input class="input100" type="radio" name="directedto" value="Videopage"><div class="button_text">See Videos</div>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
                                 <span class="lnr lnr-envelope"></span>
@@ -26,7 +33,7 @@
                         </div>
     
                         <div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
-                            <input class="input100" type="radio" name="directedto" value = "upload">Upload The Videos
+                            <input class="input100" type="radio" name="directedto" value = "upload"><div class="button_text">Upload The Videos</div>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
                                 <span class="lnr lnr-lock"></span>
