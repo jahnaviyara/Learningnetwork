@@ -6,6 +6,13 @@
         <center>
         <table cellpadding = "5">
             <%var link = JSON.parse(link);
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+            }
+            shuffleArray(link);
             for(var i = 0;i < link.length;i++){
                 var element = link[i];
                 var li,tit,dou,sub;
