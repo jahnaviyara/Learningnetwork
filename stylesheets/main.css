@@ -254,19 +254,23 @@
     z-index: 1;
   }
   
-  .input100 {
+  .button_text {
+    font-size: 30px;
+    text-align: center;
+    font-family: Raleway-SemiBold;
+    }
+    .input100 {
     font-family: Raleway-SemiBold;
     font-size: 18px;
     line-height: 1.2;
     color: #686868;
-  
-    display: block;
-    width: 100%;
+    
+     width: 100%;
     background: #e6e6e6;
-    height: 62px;
+    height: 32px;
     border-radius: 3px;
     padding: 0 30px 0 65px;
-  }
+    }
   
   
   /*------------------------------------------------------------------
@@ -352,13 +356,28 @@
     padding-left: 26px;
     cursor: pointer;
   }
+
+  .forgot_text {
+    text-align: right;
+    float: right;
+    padding-left: 210px;
+    text-decoration-style: none;
+  }
   
+  .arrows {
+    position: fixed;
+    top: 10px !important;
+    left: 10px !important;
+    width: auto;
+    height: auto;
+  }
+
   .label-checkbox100::before {
     content: "\f00c";
     font-family: FontAwesome;
     font-size: 13px;
     color: transparent;
-  
+    
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
