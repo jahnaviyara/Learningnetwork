@@ -1,5 +1,4 @@
-
-
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
 
 
 /*//////////////////////////////////////////////////////////////////
@@ -212,15 +211,20 @@
     background-position: center;
   }
   
-  .wrap-login100 {
-    width: 450px;
-    background: #fff;
-    border-radius: 3px;
-    overflow: hidden;
-  }
-  
-  
-  
+  .back-image {
+    opacity: 0.3; 
+    position: absolute; 
+    left: 0; 
+    top: 0; 
+    width: 100%; 
+   }
+   .wrap-login100 {
+     opacity: 0.89;
+     width: 450px;
+     background: #fff;
+     border-radius: 3px;
+     overflow: hidden;
+   }
   /*------------------------------------------------------------------
   [  ]*/
   .login100-form {
@@ -363,13 +367,34 @@
     padding-left: 210px;
     text-decoration-style: none;
   }
-  
+    
+  ​.upload-more {
+    padding-top: 10px;
+    padding-bottom: 110px;
+  }    
+
   .logout_button {
     position: absolute;
-    top: 10px !important;
+    top: 5px !important;
     right: 15px !important;
-    }
-    .glyphicon.glyphicon-log-out{
+  }
+
+  .glyphicon.glyphicon-education {
+    font-size:30px;
+    top: 10px;
+    left: -15px;
+  }
+  .title_networking {
+    position: fixed;
+    top: -5px !important;
+    left: 60px !important;
+    font-family: 'Dancing Script', cursive;
+    font-size:30px;
+    font-weight: bold;
+    width: auto;
+    height: autos;
+  }
+  .glyphicon.glyphicon-log-out{
     font-size: 30px;
   }
   .arrows {
