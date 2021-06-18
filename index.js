@@ -3,7 +3,13 @@ var router = express.Router();
 var mongojs = require('mongojs');
 var db = mongojs('mongodb://jahnavi:jahnavi@cluster0-shard-00-00-lhkoh.mongodb.net:27017,cluster0-shard-00-01-lhkoh.mongodb.net:27017,cluster0-shard-00-02-lhkoh.mongodb.net:27017/DataCollection?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority',['Subject','Faculty','Videos'])
 var bcrypt = require('bcrypt');
-const { Cookie } = require('express-session');
+var session = require('express-session');
+var csv = require('csvtojson');
+const { request } = require('express');
+var fs = require('fs');
+var path = require('path');
+
+// app.use(session({secret:'only for faculty',resave:false,saveUninitialized:false}));
 
 /* GET home page. */
 router.get('/',function(req,res,next){
@@ -39,7 +45,13 @@ router.get('/forgetpswd',function(req,res,next){
   res.render('forgetpswd',{msg:status});
 })
 
+router.get('/bulkupload',function(req,res,next){
+  // var status = req.query.status;
+  res.render('bulkupload',{});
+})
+
 router.post('/insertion',function(req,res,next){
+  //console.log(req);
   var name = req.body.name;
   var id = req.body.fid;
   console.log("name:",name,id,req.body.pass);
@@ -87,6 +99,7 @@ router.post('/validation',function(req,res,next){
               res.send("Enter correct Credentials"+err)
             }
             if(result){
+              
               res.render('form1',{})
             }
             else{
@@ -174,7 +187,45 @@ router.post('/datauploaded',function(req,res,next){
 });
 
 router.post('/SearchBar',function(req,res,next){
+  // console.log(req);
   var ttbs = req.body.ttbs;
+  if(ttbs.length == 0){
+    res.redirect('/videopage');
+  }
+  else{
+    db.Videos.createIndex( { subjectname: "text", topic: "text",dateofupload: "text" });
+    db.Videos.find({$text: {$search : ttbs}},function(err,docs){
+      if(err){
+        res.send(err);
+      }
+      else{
+        var links = new Array();
+        if(docs.length == 0){
+          res.redirect('/videopage');
+        }
+        else{
+          docs.forEach(element => {
+            // console.log(element);
+            var li;
+            if(element.url.includes('youtube') || element.url.includes('youtu.be')){
+              li = element.url+"/"+element.topic+"/"+element.dateofupload+"/"+element.subjectname;
+            }
+            else{
+              li = element.url+"////"+element.topic+"////"+element.dateofupload+"////"+element.subjectname;
+            }
+            links.push(li);
+          });
+          links = JSON.stringify(links);
+          res.render('videospage',{link:links});
+        }
+      }
+    })
+  }
+});
+
+router.get('/Subjectsearch',function(req,res,next){
+  var ttbs = req.query.subject;
+  console.log(ttbs)
   if(ttbs.length == 0){
     res.redirect('/videopage');
   }
@@ -243,5 +294,43 @@ router.post('/forgetpassword',function(req,res,next){
     }
   }
 });
+
+router.get('/download1',function(req,res,next) {
+  res.download(path.join(__dirname,'../public/','sample.csv'),'datauploaded.csv')
+})
+
+router.post('/bupload',function(req,res,next) {  
+  // console.log(req)
+  var file = req.body.inputfile  
+  // console.log(file)
+  var uploadedpath = path.join(__dirname,'../upload/',file)  
+  // console.log(uploadedpath)
+  file.mv(uploadedpath,function(error) {    
+    if(error) {      
+      console.log(error);    
+    }    
+    else {   
+      csv()      
+      .fromFile(uploadedpath)  // promise operation      
+      .then(function(jsonarray) {        
+        var bulk = db.Subject.initializeOrderedBulkOp()        
+        var count = 0;        
+        jsonarray.forEach(function(element) {          
+          bulk.insert(element)          
+          count = count + 1;        
+        })        
+        bulk.execute(function(error) {          
+          if(error) {            
+            console.log(error)          
+          }          
+          else {            
+            console.log(count+"data uploaded");         
+          }        
+        })      
+      })    
+    }  
+  })
+})
+
 
 module.exports = router;   
