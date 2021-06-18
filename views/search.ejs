@@ -1,5 +1,11 @@
 <html>
     <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+                <link rel="stylesheet" type="text/css" href="stylesheets/util.css">
+	            <link rel="stylesheet" type="text/css" href="stylesheets/main.css">
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
@@ -77,12 +83,169 @@ cursor: pointer;
   margin-bottom: 5px;
   transform: translate(-50%, -50%);
 }
+
+a
+{
+  text-decoration: none;
+  color: #232323;
+  
+  transition: color 0.3s ease;
+}
+
+
+#menuToggle
+{
+  display: block;
+  position: fixed;
+  top: 10px !important;
+  right: 15px !important;
+  
+  z-index: 1;
+  
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#menuToggle input
+{
+  display: block;
+  width: 40px;
+  height: 32px;
+  position: absolute;
+  top: -7px;
+  left: -5px;
+  
+  cursor: pointer;
+  
+  opacity: 0; /* hide this */
+  z-index: 2; /* and place it over the hamburger */
+  
+  -webkit-touch-callout: none;
+}
+
+/*
+ * Just a quick hamburger
+ */
+#menuToggle span
+{
+  display: block;
+  width: 33px;
+  height: 4px;
+  margin-bottom: 5px;
+  position: relative;
+  
+  background: #cdcdcd;
+  border-radius: 3px;
+  
+  z-index: 1;
+  
+  transform-origin: 4px 0px;
+  
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              opacity 0.55s ease;
+}
+
+#menuToggle span:first-child
+{
+  transform-origin: 0% 0%;
+}
+
+#menuToggle span:nth-last-child(2)
+{
+  transform-origin: 0% 100%;
+}
+
+/* 
+ * Transform all the slices of hamburger
+ * into a crossmark.
+ */
+#menuToggle input:checked ~ span
+{
+  opacity: 1;
+  transform: rotate(45deg) translate(-2px, -1px);
+  background: #232323;
+}
+
+/*
+ * But let's hide the middle one.
+ */
+#menuToggle input:checked ~ span:nth-last-child(3)
+{
+  opacity: 0;
+  transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+/*
+ * Ohyeah and the last one should go the other direction
+ */
+#menuToggle input:checked ~ span:nth-last-child(2)
+{
+  opacity: 1;
+  transform: rotate(-45deg) translate(0, -1px);
+}
+
+/*
+ * Make this absolute positioned
+ * at the top left of the screen
+ */
+#menu
+{
+  position: absolute;
+  width: 300px;
+  margin: -100px 0 0 0;
+  padding-top: 125px;
+  right: -100px;
+  
+  background: #f8f6f6;
+  list-style-type: none;
+  -webkit-font-smoothing: antialiased;
+  /* to stop flickering of text in safari */
+  
+  transform-origin: 0% 0%;
+  transform: translate(100%, 0);
+  
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+}
+
+#menu li
+{
+  padding: 10px 0;
+  font-size: 18px;
+}
+
+/*
+ * And let's fade it in from the left
+ */
+#menuToggle input:checked ~ ul
+{
+  transform: none;
+  opacity: 1;
+}
+
+@media screen and (max-width: 768px) {
+  #menu {
+    transform: none;
+    opacity: 0;
+
+    transition: opacity 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+  }
+}
+
+
+a:hover{
+  background-color: #232323;
+  display: block;
+  color: #f2f2f2;
+  text-decoration: none;
+}
         </style>
     </head>
     <body>
       <div class="arrows">
         <button type="button" class="glyphicon glyphicon-chevron-left" onclick="history.back()"/>
         <button type="button" class="glyphicon glyphicon-chevron-right" onclick="history.forward()"/>
+        <button class="title_networking"><span class="glyphicon glyphicon-education"></span> Learning Network</button>
       </div>
         <div class="wrap">
             <form action="/SearchBar" method="POST">
@@ -94,5 +257,26 @@ cursor: pointer;
             </div>
         </form>
         </div>
+        <nav role="navigation">
+          <div id="menuToggle">
+            <input type="checkbox" />
+              <span></span>
+              <span></span>
+              <span></span>
+              <ul id="menu" style="overflow-y: auto; max-height: 500px;text-align: left;">
+                <a href="Subjectsearch?subject=machine learning"><li>Machine Learning</li></a>
+                <a href="Subjectsearch?subject=data structures"><li>Data Structures</li></a>
+                <a href="Subjectsearch?subject=big data technologies"><li>Big Data Technologies</li></a>
+                <a href="Subjectsearch?subject=advanced data structures"><li>Advanced Data Structures</li></a>
+                <a href="Subjectsearch?subject=OOAD"><li>OOAD</li></a>
+                <a href="Subjectsearch?subject=computer networking"><li>Computer Networking</li></a>
+                <a href="Subjectsearch?subject=datascience using python"><li>DataScience using python</li></a>
+                <a href="Subjectsearch?subject=oop through c++"><li>OOP through C++</li></a>
+                <a href="Subjectsearch?subject=computer organisation and architecture"><li>Computer organisation and architecture</li></a>
+                <a href="Subjectsearch?subject=oop through java"><li>OOP through Java</li></a>
+                <a href="Subjectsearch?subject=E-commerce"><li>E-Commerce</li></a>
+              </ul>
+          </div>
+        </nav>
     </body>
 </html>

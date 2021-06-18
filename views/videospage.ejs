@@ -4,7 +4,7 @@
     <body>
         <!-- <input type="button" value="back" onclick="history.back()"> -->
         <center>
-        <table cellpadding = "5">
+        <table>
             <%var link = JSON.parse(link);
             function shuffleArray(array) {
                 for (let i = array.length - 1; i > 0; i--) {
@@ -42,7 +42,7 @@
                 }%>
                 <center>
                     <tr>
-                        <td>
+                        <td style="padding: 5px;">
                             <% if(element.includes('youtube') || element.includes('youtu.be')){%>
                                 <iframe class="video" width = "350" height="190" src="https://www.youtube.com/embed/<%=li%>" allowfullscreen></iframe>
                             <%}
@@ -50,7 +50,7 @@
                                 <iframe src="https://drive.google.com/file/d/<%=li%>/preview" width="350" height="190" allowfullscreen></iframe>
                             <%}%>
                         </td>
-                        <td>
+                        <td style="padding: 5px;">
                             <div class="text1" style="margin-left: 50px;font-weight: bold; font-size: x-large;"><%=tit%></div>
                             <div class="text2" style="margin-left: 50px;font-size: medium;">Date of Upload:-<%=dou%></div>
                             <div class="text2" style="margin-left: 50px;font-size: medium;">Subject Name:-<%=sub%></div>
